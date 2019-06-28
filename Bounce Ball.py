@@ -1,11 +1,7 @@
-#This is bounce ball game develop with the help of Tkinter graphics.
 from tkinter import *
 import random
 import time
-#import numpy as np
-#np.random.seed(1024)
 
-#Code to create Ball
 class Ball:
         def __init__(self, canvas, paddle, paddle1, color):
                 self.canvas = canvas
@@ -15,7 +11,6 @@ class Ball:
                 self.canvas.move(self.id, 225, 300)
                 starts = [-3,-2,-1,1,2,3]
                 random.shuffle(starts)
-#                self.x = starts[np.random.randint(0,2)]
                 self.x = starts[0]
                 self.y = 1
                 self.canvas_height = self.canvas.winfo_height()
@@ -25,7 +20,7 @@ class Ball:
 
         def hit_paddle(self, pos):
                 paddle_pos = self.canvas.coords(self.paddle.id)
-                if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]: #horizontally within paddle
+                if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
                         if pos[3] >= paddle_pos[1] and pos[3] <= paddle_pos[3]:
                                 return True
                 return False
@@ -44,7 +39,7 @@ class Ball:
 
         def hit_paddle1(self, pos1):
                 paddle1_pos = self.canvas.coords(self.paddle1.id)
-                if pos1[2] >= paddle1_pos[0] and pos1[0] <= paddle1_pos[2]: #horizontally within paddle
+                if pos1[2] >= paddle1_pos[0] and pos1[0] <= paddle1_pos[2]:
                         if pos1[1] >= paddle1_pos[1] and pos1[1] <= paddle1_pos[3]:
                                 return True
                 return False
@@ -60,8 +55,7 @@ class Ball:
                         self.x = 1
                 if pos1[2] >= self.canvas_width:
                         self.x = -1
-
-#Code for Paddle                        
+                      
 class Paddle:
         def __init__(self, canvas, color):
                 self.canvas = canvas
@@ -83,8 +77,7 @@ class Paddle:
                 self.x = -2
         def turn_right(self, evt):
                 self.x = 2
-
-#Code for Paddle                        
+                      
 class Paddle1:
         def __init__(self, canvas, color):
                 self.canvas = canvas
@@ -117,7 +110,6 @@ canvas = Canvas(tk, width=450, height=600, bd=0, highlightthickness=0)
 canvas.pack()
 tk.update()
 
-#Object of score ,paddle and ball
 paddle = Paddle(canvas, 'blue')
 paddle1 = Paddle1(canvas, 'red')
 ball = Ball(canvas, paddle, paddle1, 'yellow')
@@ -125,13 +117,12 @@ player_1_win = canvas.create_text(225, 300, text='PLAYER 1 WINS !!!', state='hid
 player_2_win = canvas.create_text(225, 300, text='PLAYER 2 WINS !!!', state='hidden')
 canvas.create_text(225, 50, text = "PLAYER 1")
 canvas.create_text(225, 550, text = "PLAYER 2")
-#Loop to run 
+
 while 1:
         if ball.hit_bottom==False:
                 ball.draw()
                 paddle.draw()
 
-        #Game over condition
         if ball.hit_bottom == True:
                  time.sleep(1)
                  canvas.itemconfig(player_1_win, state='normal')
@@ -140,7 +131,6 @@ while 1:
                 ball.draw1()
                 paddle1.draw1()
 
-        #Game over condition
         if ball.hit_top == True:
                  time.sleep(1)
                  canvas.itemconfig(player_2_win, state='normal')
